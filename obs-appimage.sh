@@ -11,7 +11,7 @@ export ARCH="$(uname -m)"
 export APPIMAGE_EXTRACT_AND_RUN=1
 
 APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$ARCH.AppImage"
-UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|rofi-AppImage|continuous|*$ARCH.AppImage.zsync"
+UPINFO="gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|OBS-Studio-AppImage|continuous|*$ARCH.AppImage.zsync"
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 SHARUN=$(wget -q https://api.github.com/repos/VHSgunzo/sharun/releases -O - \
 	| sed 's/[()",{} ]/\n/g' | grep -oi "https.*-$ARCH$" | head -1)
