@@ -1,0 +1,57 @@
+name: Appimage
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: "0 15 * * 0"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    container: artixlinux/artixlinux:latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: build
+      if: always()
+      run: |
+        pacman -Syu --noconfirm base-devel curl desktop-file-utils git wget \
+          base-devel patchelf obs-studio
+
+        # Artix repos don't have zsyc
+        wget https://london.mirror.pkgbuild.com/extra/os/x86_64/zsync-0.6.2-5-x86_64.pkg.tar.zst
+        pacman -U --noconfirm ./zsync-0.6.2-5-x86_64.pkg.tar.zst
+
+        chmod +x ./*-appimage.sh && ./*-appimage.sh
+        mkdir dist
+        mv *.AppImage* dist/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: AppImage
+        path: 'dist'
+
+  release:
+      needs: [build]
+      permissions: write-all
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v4.1.8
+          with:
+            name: AppImage
+
+        - name: release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            title: Continuous build
+            automatic_release_tag: continuous
+            prerelease: false
+            draft: false
+            files: |
+              *.AppImage*
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
