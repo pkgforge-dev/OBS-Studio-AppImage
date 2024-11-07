@@ -23,6 +23,7 @@ cp /usr/share/applications/$DESKTOP ./usr/share/applications
 cp /usr/share/applications/$DESKTOP ./
 cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./
 ln -s ./usr/share ./share
+ln -s ./shared/lib ./lib
 
 echo '#!/bin/sh
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
@@ -38,7 +39,6 @@ chmod +x ./lib4bin
 ./lib4bin -p -w -v /usr/bin/obs*
 rm -f ./lib4bin
 
-ln -s ./shared/lib ./lib # NEEDED BY OBS
 cp -nv /usr/lib/libobs* ./shared/lib
 cp -r /usr/lib/obs-plugins     ./shared/lib
 cp -r /usr/lib/obs-scripting   ./shared/lib
@@ -48,6 +48,14 @@ patchelf --set-rpath '$ORIGIN' ./shared/lib/libobs*
 
 ldd ./shared/lib/obs-plugins/* 2>/dev/null \
   | awk -F"[> ]" '{print $4}' | xargs -I {} cp -nv {} ./shared/lib || true
+
+# DEPLOY GRAPHIC LIBS
+cp -nv /usr/lib/librt.so.1         ./shared/lib
+cp -nv /usr/lib/libm.so.6          ./shared/lib
+cp -nv /usr/lib/libxcb.so.1        ./shared/lib
+cp -nv /usr/lib/libGLX.so.0        ./shared/lib
+cp -nv /usr/lib/libGLdispatch.so.0 ./shared/lib
+cp -nv /usr/lib/libGL.so.1         ./shared/lib
 
 # DELOY QT
 mkdir -p ./shared/lib/qt6/plugins
