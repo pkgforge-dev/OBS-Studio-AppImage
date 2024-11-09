@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -eu
 
 PACKAGE=obs-studio
 TARGET_BIN=obs
@@ -19,7 +19,7 @@ mkdir -p ./"$PACKAGE"/AppDir/usr/share/applications ./"$PACKAGE"/AppDir/shared/l
 cd ./"$PACKAGE"/AppDir
 cp -r /usr/share/obs ./usr/share
 cp -r /usr/share/locale ./usr/share
-cp -r /usr/lib/locale ./shared/lib
+cp -r /usr/share/glvnd ./usr/share
 cp /usr/share/applications/$DESKTOP ./usr/share/applications
 cp /usr/share/applications/$DESKTOP ./
 cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./
@@ -33,6 +33,7 @@ GDK_LOADER="$(find "$CURRENTDIR" -type f -regex '.*gdk.*loaders.cache' -print -q
 export GDK_PIXBUF_MODULEDIR="$GDK_HERE"
 export GDK_PIXBUF_MODULE_FILE="$GDK_LOADER"
 export XDG_DATA_DIRS="$CURRENTDIR/usr/share:$XDG_DATA_DIRS"
+export __EGL_VENDOR_LIBRARY_DIRS="$CURRENTDIR/share/glvnd/egl_vendor.d"
 export PATH="$CURRENTDIR/bin:$PATH"
 "$CURRENTDIR"/bin/TARGET "$@"' > ./AppRun
 sed -i "s|TARGET|$TARGET_BIN|" ./AppRun
@@ -41,7 +42,7 @@ chmod +x ./AppRun
 # ADD LIBRARIES
 wget "$LIB4BN" -O ./lib4bin
 chmod +x ./lib4bin
-./lib4bin -p -w -v /usr/bin/obs*
+xvfb-run -d -- ./lib4bin -p -w -v -e /usr/bin/obs*
 rm -f ./lib4bin
 
 cp -nv /usr/lib/libpthread.so.0 ./shared/lib
@@ -65,14 +66,6 @@ find ./shared/lib/gdk-pixbuf-2.0 -type f -name '*.so*' -exec ldd {} \; \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./shared/lib
 find ./shared/lib -type f -regex '.*gdk.*loaders.cache' \
 	-exec sed -i 's|/.*lib.*/gdk-pixbuf.*/.*/loaders/||g' {} \;
-
-# DEPLOY GRAPHIC LIBS
-cp -nv /usr/lib/librt.so.1         ./shared/lib
-cp -nv /usr/lib/libm.so.6          ./shared/lib
-cp -nv /usr/lib/libxcb.so.1        ./shared/lib
-cp -nv /usr/lib/libGLX.so.0        ./shared/lib
-cp -nv /usr/lib/libGLdispatch.so.0 ./shared/lib
-cp -nv /usr/lib/libGL.so.1         ./shared/lib
 
 # DELOY QT
 mkdir -p ./shared/lib/qt6/plugins
