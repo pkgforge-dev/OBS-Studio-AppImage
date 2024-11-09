@@ -19,7 +19,7 @@ jobs:
       if: always()
       run: |
         pacman -Syu --noconfirm base-devel curl desktop-file-utils git wget \
-          base-devel patchelf obs-studio qt6ct qt6-wayland libfdk-aac gtk3 strace
+          base-devel patchelf obs-studio qt6ct qt6-wayland libfdk-aac gtk3 strace xorg-server-xvfb
 
         # Artix repos don't have zsyc
         wget https://london.mirror.pkgbuild.com/extra/os/x86_64/zsync-0.6.2-5-x86_64.pkg.tar.zst
