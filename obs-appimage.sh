@@ -59,6 +59,11 @@ ldd ./shared/lib/qt6/plugins/*/* 2>/dev/null \
 find ./shared/lib -type f -exec strip -s -R .comment --strip-unneeded {} ';'
 ./sharun -g
 
+# MAKE APPIMAGE WITH URUNTIME
+cd ..
+wget -q "$URUNTIME" -O ./uruntime
+chmod +x ./uruntime
+
 #Add udpate info to runtime
 echo "Adding update information \"$UPINFO\" to runtime..."
 printf "$UPINFO" > data.upd_info
