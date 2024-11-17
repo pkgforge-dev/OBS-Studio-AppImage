@@ -49,8 +49,8 @@ jobs:
           uses: marvinpinto/action-automatic-releases@latest
           with:
             title: Continuous build
-            automatic_release_tag: continuous
-            prerelease: false
+            automatic_release_tag: test
+            prerelease: true
             draft: false
             files: |
               *.AppImage*
