@@ -56,6 +56,7 @@ find ./shared -type f -exec strip -s -R .comment --strip-unneeded {} ';'
 echo '#!/bin/sh
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 exec "$CURRENTDIR"/bin/obs "$@"' > ./AppRun
+chmod +x ./AppRun
 ./sharun -g
 
 # MAKE APPIMAGE WITH URUNTIME
