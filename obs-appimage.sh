@@ -25,6 +25,7 @@ cp -r /usr/share/glvnd                           ./usr/share
 cp /usr/share/applications/$DESKTOP              ./usr/share/applications
 cp /usr/share/applications/$DESKTOP              ./
 cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./
+cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./.DirIcon
 
 ln -s ./usr/share ./
 
