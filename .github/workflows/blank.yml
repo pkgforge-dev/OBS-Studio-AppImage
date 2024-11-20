@@ -5,7 +5,7 @@ concurrency:
 
 on:
   schedule:
-    - cron: "0 15 * * 0"
+    - cron: "0 7 * * 0"
   workflow_dispatch:
 
 jobs:
@@ -18,12 +18,11 @@ jobs:
     - name: build
       if: always()
       run: |
-        pacman -Syu --noconfirm base-devel curl desktop-file-utils git wget \
-          base-devel patchelf obs-studio qt6ct qt6-wayland libfdk-aac gtk3 strace xorg-server-xvfb llvm
-
-        # Artix repos don't have zsyc
-        wget https://london.mirror.pkgbuild.com/extra/os/x86_64/zsync-0.6.2-5-x86_64.pkg.tar.zst
-        pacman -U --noconfirm ./zsync-0.6.2-5-x86_64.pkg.tar.zst
+        pacman -Syu --noconfirm base-devel strace patchelf curl wget \
+          desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb
+        pacman-key --init && pacman-key --populate archlinux
+        printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
+        pacman -Syu --noconfirm zsync obs-studio qt6ct qt6-wayland libfdk-aac gtk3
 
         chmod +x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
