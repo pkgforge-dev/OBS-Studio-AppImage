@@ -33,7 +33,7 @@ ln -s ./usr/share ./
 # ADD LIBRARIES
 wget "$LIB4BN" -O ./lib4bin
 chmod +x ./lib4bin
-xvfb-run -d -- ./lib4bin -p -v -e -r /usr/bin/obs*
+xvfb-run -a -- ./lib4bin -p -v -e -r -k /usr/bin/obs*
 rm -f ./lib4bin
 
 # DELOY QT AND OBS PLUGINS
@@ -51,6 +51,10 @@ cp -r /usr/lib/obs-scripting ./shared/lib
 
 ldd ./shared/lib/qt6/plugins/*/* ./shared/lib/obs*/* 2>/dev/null \
   | awk -F"[> ]" '{print $4}' | xargs -I {} cp -nv {} ./shared/lib || true
+
+cp -rv /usr/lib/alsa-lib     ./usr/lib
+cp -rv /usr/lib/pipewire-0.3 ./usr/lib
+cp -rv /usr/lib/spa-0.2      ./usr/lib
 
 find ./shared -type f -exec strip -s -R .comment --strip-unneeded {} ';'
 
