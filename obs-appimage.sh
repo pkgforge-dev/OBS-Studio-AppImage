@@ -13,53 +13,45 @@ echo "$VERSION" > ~/version
 
 UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
-URUNTIME="$(wget -q https://api.github.com/repos/VHSgunzo/uruntime/releases -O - \
-	| sed 's/[()",{} ]/\n/g' | grep -oi "https.*appimage.*dwarfs.*$ARCH$" | head -1)"
+URUNTIME=$(wget --retry-connrefused --tries=30 \
+	https://api.github.com/repos/VHSgunzo/uruntime/releases -O - \
+	| sed 's/[()",{} ]/\n/g' | grep -oi "https.*appimage.*dwarfs.*$ARCH$" | head -1)
 
 # Prepare AppDir
-mkdir -p ./"$PACKAGE"/AppDir/usr/share/applications ./"$PACKAGE"/AppDir/shared/lib
-cd ./"$PACKAGE"/AppDir
+mkdir -p ./AppDir/share
+cd ./AppDir
 
-cp -r /usr/share/obs                             ./usr/share
-cp -r /usr/share/locale                          ./usr/share
-cp -r /usr/share/glvnd                           ./usr/share
-cp /usr/share/applications/$DESKTOP              ./usr/share/applications
-cp /usr/share/applications/$DESKTOP              ./
-cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./
-cp /usr/share/icons/hicolor/256x256/apps/"$ICON" ./.DirIcon
-
-ln -s ./usr/share ./
+cp -r /usr/share/obs                              ./share
+cp -r /usr/share/locale                           ./share
+cp -r /usr/share/glvnd                            ./share
+cp /usr/share/applications/"$DESKTOP"             ./
+cp /usr/share/icons/hicolor/256x256/apps/"$ICON"  ./
+cp /usr/share/icons/hicolor/256x256/apps/"$ICON"  ./.DirIcon
+ln -s ./ ./usr
 
 # ADD LIBRARIES
 wget "$LIB4BN" -O ./lib4bin
 chmod +x ./lib4bin
-xvfb-run -a -- ./lib4bin -p -v -e -r -k /usr/bin/obs*
-rm -f ./lib4bin
+xvfb-run -a -- ./lib4bin -p -v -e -k \
+	/usr/bin/obs* \
+	/usr/lib/libobs* \
+	/usr/lib/obs-plugins/* \
+	/usr/lib/obs-scripting/* \
+	/usr/lib/qt6/plugins/iconengines/* \
+	/usr/lib/qt6/plugins/imageformats/* \
+	/usr/lib/qt6/plugins/platforms/* \
+	/usr/lib/qt6/plugins/platformthemes/* \
+	/usr/lib/qt6/plugins/styles/* \
+	/usr/lib/qt6/plugins/xcbglintegrations/* \
+	/usr/lib/qt6/plugins/wayland-*/* \
+	/usr/lib/alsa-lib/* \
+	/usr/lib/pipewire-0.3/* \
+	/usr/lib/spa-0.2/*/*
 
-# DELOY QT AND OBS PLUGINS
-mkdir -p ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/iconengines       ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/imageformats      ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/platforms         ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/platformthemes    ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/styles            ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/xcbglintegrations ./shared/lib/qt6/plugins
-cp -r /usr/lib/qt6/plugins/wayland-*         ./shared/lib/qt6/plugins
-
-cp -r /usr/lib/obs-plugins   ./shared/lib
-cp -r /usr/lib/obs-scripting ./shared/lib
-
-ldd ./shared/lib/qt6/plugins/*/* ./shared/lib/obs*/* 2>/dev/null \
-  | awk -F"[> ]" '{print $4}' | xargs -I {} cp -nv {} ./shared/lib || true
-
-cp -rv /usr/lib/alsa-lib     ./usr/lib
-cp -rv /usr/lib/pipewire-0.3 ./usr/lib
-cp -rv /usr/lib/spa-0.2      ./usr/lib
-
-find ./shared -type f -exec strip -s -R .comment --strip-unneeded {} ';'
+cp -vn /usr/lib/obs-scripting/* ./shared/lib/obs-scripting
 
 # Prepare sharun
-ln -s ./bin/obs ./AppRun
+ln ./sharun ./AppRun
 ./sharun -g
 
 # MAKE APPIMAGE WITH URUNTIME
@@ -80,12 +72,9 @@ echo "Generating AppImage..."
 	--no-history --no-create-timestamp \
 	--compression zstd:level=22 -S24 -B16 \
 	--header uruntime \
-	-i ./AppDir -o "$PACKAGE"-"$VERSION"-anylinux-"$ARCH".AppImage
+	-i ./AppDir -o OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
 
 echo "Generating zsync file..."
 zsyncmake *.AppImage -u *.AppImage
 
-mv ./*.AppImage* ../
-cd ..
-rm -rf ./"$PACKAGE"
 echo "All Done!"

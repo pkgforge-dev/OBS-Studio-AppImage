@@ -5,7 +5,7 @@ concurrency:
 
 on:
   schedule:
-    - cron: "0 7 * * 0"
+    - cron: "0 14 * * 0"
   workflow_dispatch:
 
 jobs:
@@ -26,6 +26,15 @@ jobs:
         pacman -Syu --noconfirm zsync pulseaudio pulseaudio-alsa \
           pipewire-audio obs-studio qt6ct qt6-wayland libfdk-aac gtk3
 
+    - name: Install debloated llvm-libs
+      run: |
+        LLVM_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/llvm-libs-nano-x86_64.pkg.tar.zst"
+        wget --retry-connrefused --tries=30 "$LLVM_URL" -O ./llvm-libs.pkg.tar.zst
+        pacman -U --noconfirm ./llvm-libs.pkg.tar.zst
+        rm -f ./llvm-libs.pkg.tar.zst
+
+    - name: Make AppImage
+      run: |
         chmod +x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
         mv *.AppImage* dist/
