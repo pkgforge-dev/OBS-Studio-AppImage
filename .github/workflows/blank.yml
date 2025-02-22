@@ -24,7 +24,7 @@ jobs:
         pacman-key --init && pacman-key --populate archlinux
         printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
         pacman -Syu --noconfirm zsync pulseaudio pulseaudio-alsa \
-          pipewire-audio obs-studio qt6ct qt6-wayland libfdk-aac gtk3
+          pipewire-audio obs-studio qt6ct qt6-wayland libfdk-aac gtk3 libxtst
 
     - name: Install debloated llvm-libs
       run: |
