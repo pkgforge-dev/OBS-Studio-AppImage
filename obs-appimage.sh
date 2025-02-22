@@ -37,6 +37,12 @@ xvfb-run -a -- ./lib4bin -p -v -e -k -s \
 	/usr/lib/libobs* \
 	/usr/lib/obs-plugins/* \
 	/usr/lib/obs-scripting/* \
+	/usr/lib/libcurl.so* \
+	/usr/lib/libavutil.so* \
+	/usr/lib/libavformat.so* \
+	/usr/lib/libavcodec.so* \
+	/usr/lib/libswscale.so* \
+	/usr/lib/libXt.so* \
 	/usr/lib/qt6/plugins/iconengines/* \
 	/usr/lib/qt6/plugins/imageformats/* \
 	/usr/lib/qt6/plugins/platforms/* \
