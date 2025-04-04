@@ -50,6 +50,7 @@ xvfb-run -a -- ./lib4bin -p -v -e -k -s \
 	/usr/lib/qt6/plugins/styles/* \
 	/usr/lib/qt6/plugins/xcbglintegrations/* \
 	/usr/lib/qt6/plugins/wayland-*/* \
+	/usr/lib/vdpau/* \
 	/usr/lib/alsa-lib/* \
 	/usr/lib/pipewire-0.3/* \
 	/usr/lib/spa-0.2/*/*
