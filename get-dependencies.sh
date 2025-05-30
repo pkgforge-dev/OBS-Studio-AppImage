@@ -23,9 +23,9 @@ pacman -Syu --noconfirm \
 	curl \
 	desktop-file-utils \
 	git \
-  libfdk-aac \
+	libfdk-aac \
 	libxtst \
-  obs-studio \
+	obs-studio \
 	pipewire-audio \
 	pulseaudio \
 	pulseaudio-alsa \
