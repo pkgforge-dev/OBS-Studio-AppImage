@@ -28,7 +28,7 @@ ln -s ./ ./usr
 # ADD LIBRARIES
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
-xvfb-run -a -- ./lib4bin -p -v -e -k -s \
+xvfb-run -a -- ./sharun-aio l -p -v -e -k -s \
 	/usr/bin/obs* \
 	/usr/lib/libobs* \
 	/usr/lib/obs-plugins/* \
