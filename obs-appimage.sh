@@ -77,7 +77,18 @@ echo "Generating AppImage..."
 	--header uruntime-lite \
 	-i ./AppDir -o ./OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
 
-echo "Generating zsync file..."
-zsyncmake *.AppImage -u *.AppImage
+# make appbundle
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH*.AppBundle.zsync"
+wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
+chmod +x ./pelf
+echo "Generating [dwfs]AppBundle...(Go runtime)"
+./pelf --add-appdir ./AppDir \
+	--compression "-C zstd:level=22 -S26 -B8" \
+	--appbundle-id="OBS-Studio-$VERSION" \
+	--appimage-compat --disable-use-random-workdir \
+	--add-updinfo "$UPINFO" \
+	--output-to "OBS-Studio-$VERSION-anylinux-$ARCH.dwfs.AppBundle"
 
+zsyncmake ./*.AppImage -u ./*.AppImage
+zsyncmake ./*.AppBundle -u ./*.AppBundle
 echo "All Done!"
