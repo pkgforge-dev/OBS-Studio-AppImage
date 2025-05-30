@@ -21,6 +21,7 @@ cd ./AppDir
 
 cp -r /usr/share/obs                              ./share
 cp -r /usr/share/locale                           ./share
+find ./share/locale -type f ! -name '*glib*' ! -name '*v4l*' ! -name '*obs*' -delete
 cp /usr/share/applications/"$DESKTOP"             ./
 cp /usr/share/icons/hicolor/256x256/apps/"$ICON"  ./
 cp /usr/share/icons/hicolor/256x256/apps/"$ICON"  ./.DirIcon
