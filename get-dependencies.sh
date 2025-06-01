@@ -29,6 +29,7 @@ pacman -Syu --noconfirm \
 	pipewire-audio \
 	pulseaudio \
 	pulseaudio-alsa \
+	qrcodegencpp-cmake \
 	qt6ct \
 	qt6-wayland \
 	wget \
