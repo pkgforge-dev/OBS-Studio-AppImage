@@ -95,7 +95,7 @@ jobs:
         continue-on-error: true
 
       - name: Continuous Releaser
-        uses: softprops/action-gh-release@v2.2.2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           name: "OBS Studio AppImage ${{ env.APP_VERSION }}"
           tag_name: "${{ env.APP_VERSION }}"
@@ -108,7 +108,7 @@ jobs:
             *.AppBundle*
 
       - name: Snapshot Releaser
-        uses: softprops/action-gh-release@v2.2.2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           name: "Snapshot ${{ env.APP_VERSION }}"
           tag_name: "${{ env.SNAPSHOT_TAG }}"
