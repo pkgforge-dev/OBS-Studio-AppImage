@@ -78,7 +78,7 @@ echo "Generating AppImage..."
 	-i ./AppDir -o ./OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
 
 # make appbundle
-UPINFO="$(echo "$UPINFO" | sed 's#.AppImage#*.AppBundle#g')"
+UPINFO="$(echo "$UPINFO" | sed 's#.AppImage.zsync#*.AppBundle.zsync#g')"
 wget -O ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
 chmod +x ./pelf
 echo "Generating [dwfs]AppBundle..."
