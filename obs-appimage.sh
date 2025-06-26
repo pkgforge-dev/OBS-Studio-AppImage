@@ -78,15 +78,16 @@ echo "Generating AppImage..."
 	-i ./AppDir -o ./OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
 
 # make appbundle
-UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH*.AppBundle.zsync"
-wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
+UPINFO="$(echo "$UPINFO" | sed 's#.AppImage#*.AppBundle#g')"
+wget -O ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
 chmod +x ./pelf
-echo "Generating [dwfs]AppBundle...(Go runtime)"
+echo "Generating [dwfs]AppBundle..."
 ./pelf --add-appdir ./AppDir \
-	--compression "-C zstd:level=22 -S26 -B8" \
-	--appbundle-id="OBS-Studio-$VERSION" \
-	--appimage-compat --disable-use-random-workdir \
+	--appbundle-id="com.obsproject.Studio#github.com/$GITHUB_REPOSITORY:$VERSION@$(date +%d_%m_%Y)" \
+	--appimage-compat \
+	--disable-use-random-workdir \
 	--add-updinfo "$UPINFO" \
+	--compression "-C zstd:level=22 -S26 -B8" \
 	--output-to "OBS-Studio-$VERSION-anylinux-$ARCH.dwfs.AppBundle"
 
 zsyncmake ./*.AppImage -u ./*.AppImage
