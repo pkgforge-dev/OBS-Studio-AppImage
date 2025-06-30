@@ -23,6 +23,7 @@ pacman -Syu --noconfirm \
 	curl \
 	desktop-file-utils \
 	git \
+	intel-media-driver \
 	libfdk-aac \
 	libxtst \
 	obs-studio \

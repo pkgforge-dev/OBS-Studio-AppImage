@@ -59,6 +59,9 @@ cp -vn /usr/lib/obs-scripting/* ./shared/lib/obs-scripting
 ln ./sharun ./AppRun
 ./sharun -g
 
+# Make intel hardware accel work
+echo 'LIBVA_DRIVERS_PATH=${SHARUN_DIR}/shared/lib:${SHARUN_DIR}/shared/lib/dri' >> ./.env
+
 # MAKE APPIMAGE WITH URUNTIME
 cd ..
 wget --retry-connrefused --tries=30 "$URUNTIME"      -O  ./uruntime
