@@ -30,27 +30,29 @@ ln -s ./ ./usr
 # ADD LIBRARIES
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./sharun-aio
 chmod +x ./sharun-aio
-xvfb-run -a -- ./sharun-aio l -p -v -e -k -s \
-	/usr/bin/obs* \
-	/usr/lib/libobs* \
-	/usr/lib/obs-plugins/* \
-	/usr/lib/obs-scripting/* \
-	/usr/lib/libcurl.so* \
-	/usr/lib/libavutil.so* \
-	/usr/lib/libavformat.so* \
-	/usr/lib/libavcodec.so* \
-	/usr/lib/libswscale.so* \
-	/usr/lib/libXt.so* \
-	/usr/lib/qt6/plugins/iconengines/* \
-	/usr/lib/qt6/plugins/imageformats/* \
-	/usr/lib/qt6/plugins/platforms/* \
-	/usr/lib/qt6/plugins/platformthemes/* \
-	/usr/lib/qt6/plugins/styles/* \
+xvfb-run -a -- \
+	./sharun-aio l -p -v -e -k -s            \
+	/usr/bin/obs*                            \
+	/usr/lib/libobs*                         \
+	/usr/lib/obs-plugins/*                   \
+	/usr/lib/obs-scripting/*                 \
+	/usr/lib/lib*GL*.so*                     \
+	/usr/lib/dri/*                           \
+	/usr/lib/vdpau/*                         \
+	/usr/lib/libcurl.so*                     \
+	/usr/lib/libavutil.so*                   \
+	/usr/lib/libavformat.so*                 \
+	/usr/lib/libavcodec.so*                  \
+	/usr/lib/libswscale.so*                  \
+	/usr/lib/libXt.so*                       \
+	/usr/lib/qt6/plugins/iconengines/*       \
+	/usr/lib/qt6/plugins/imageformats/*      \
+	/usr/lib/qt6/plugins/platform*/*         \
+	/usr/lib/qt6/plugins/styles/*            \
 	/usr/lib/qt6/plugins/xcbglintegrations/* \
-	/usr/lib/qt6/plugins/wayland-*/* \
-	/usr/lib/vdpau/* \
-	/usr/lib/alsa-lib/* \
-	/usr/lib/pipewire-0.3/* \
+	/usr/lib/qt6/plugins/wayland-*/*         \
+	/usr/lib/alsa-lib/*                      \
+	/usr/lib/pipewire-0.3/*                  \
 	/usr/lib/spa-0.2/*/*
 rm -f ./sharun-aio
 cp -vn /usr/lib/obs-scripting/* ./shared/lib/obs-scripting
@@ -59,7 +61,7 @@ cp -vn /usr/lib/obs-scripting/* ./shared/lib/obs-scripting
 ln ./sharun ./AppRun
 ./sharun -g
 
-# Make intel hardware accel work
+# Make hardware video encoding work
 echo 'LIBVA_DRIVERS_PATH=${SHARUN_DIR}/shared/lib:${SHARUN_DIR}/shared/lib/dri' >> ./.env
 
 # MAKE APPIMAGE WITH URUNTIME
