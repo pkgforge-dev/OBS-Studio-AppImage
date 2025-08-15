@@ -12,7 +12,7 @@ VERSION="$(pacman -Q obs-studio | awk 'NR==1 {print $2; exit}')"
 export ADD_HOOKS="self-updater.bg.hook"
 export OUTNAME=OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
-export DESKTOP=/usr/share/applications/com.obsproject.Studio.deskto
+export DESKTOP=/usr/share/applications/com.obsproject.Studio.desktop
 export ICON=/usr/share/icons/hicolor/256x256/apps/com.obsproject.Studio.png 
 export DEPLOY_LOCALE=1
 export DEPLOY_OPENGL=1 
