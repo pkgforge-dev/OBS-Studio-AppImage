@@ -7,7 +7,7 @@ URUNTIME="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs
 SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
 
 VERSION="$(pacman -Q obs-studio | awk 'NR==1 {print $2; exit}')"
-[ -n "$VERSION"] && echo "$VERSION" > ~/version
+[ -n "$VERSION" ] && echo "$VERSION" > ~/version
 
 export ADD_HOOKS="self-updater.bg.hook"
 export OUTNAME=OBS-Studio-"$VERSION"-anylinux-"$ARCH".AppImage
