@@ -52,6 +52,7 @@ jobs:
           overwrite: true
 
   release:
+    if: ${{ github.ref_name == 'main' }}
     name: "release"
     needs: [build]
     permissions:
