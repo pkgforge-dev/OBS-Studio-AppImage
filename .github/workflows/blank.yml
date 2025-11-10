@@ -61,7 +61,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4.3.0
+      - uses: actions/download-artifact@v6.0.0
         with:
           name: AppImage-x86_64
 
@@ -69,7 +69,7 @@ jobs:
 #        with:
 #          name: AppImage-aarch64
 
-      - uses: actions/download-artifact@v4.3.0
+      - uses: actions/download-artifact@v6.0.0
         with:
           name: version
 
