@@ -6,6 +6,7 @@ ARCH=$(uname -m)
 VERSION=$(pacman -Q obs-studio | awk '{print $2; exit}') # example command to get version of application here
 export ARCH VERSION
 export OUTPATH=./dist
+export APPNAME=OBS_Studio
 export ADD_HOOKS="self-updater.bg.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
 export DESKTOP=/usr/share/applications/com.obsproject.Studio.desktop
@@ -36,7 +37,7 @@ echo "Generating [dwfs]AppBundle..."
 	--disable-use-random-workdir \
 	--add-updinfo "$UPINFO" \
 	--compression "-C zstd:level=22 -S26 -B8" \
-	--output-to "OBS-Studio-$VERSION-anylinux-$ARCH.dwfs.AppBundle"
+	--output-to "$APPNAME-$VERSION-anylinux-$ARCH.dwfs.AppBundle"
 zsyncmake ./*.AppBundle -u ./*.AppBundle
 mv -v ./*.AppBundle* ./dist
 echo "All Done!"
