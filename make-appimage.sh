@@ -15,7 +15,7 @@ export DEPLOY_OPENGL=1
 export DEPLOY_PIPEWIRE=1
 
 # Deploy dependencies
-./quick-sharun \
+quick-sharun \
 	/usr/bin/obs*  \
 	/usr/lib/obs*  \
 	/usr/lib/libobs*
