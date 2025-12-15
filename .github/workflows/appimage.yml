@@ -47,10 +47,6 @@ jobs:
           pattern: AppImage-*
           merge-multiple: true
 
-      - uses: actions/download-artifact@v4.3.0
-        with:
-          name: version
-
       - name: Read version and Get date
         run: |
           echo "VERSION=$(awk -F'=' '/X-AppImage-Name/{print $2; exit}' ./appinfo)" >> "${GITHUB_ENV}"
