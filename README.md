@@ -1,7 +1,7 @@
 # OBS-Studio-AppImage 🐧
 
 [![GitHub Downloads](https://img.shields.io/github/downloads/pkgforge-dev/OBS-Studio-AppImage/total?logo=github&label=GitHub%20Downloads)](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
-[![CI Build Status](https://github.com//pkgforge-dev/OBS-Studio-AppImage/actions/workflows/blank.yml/badge.svg)](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
+[![CI Build Status](https://github.com//pkgforge-dev/OBS-Studio-AppImage/actions/workflows/appimage.yml/badge.svg)](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
 
 * [Latest Stable Release](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
 
@@ -19,7 +19,7 @@ It is possible that this appimage may fail to work with appimagelauncher, I reco
 
 * [soar](https://github.com/pkgforge/soar) `soar install obs-studio`
 
-This appimage works without fuse2 as it can use fuse3 instead, it can also work without fuse at all thanks to the [uruntime](https://github.com/VHSgunzo/uruntime)
+This AppImage can work **without FUSE** at all thanks to the [uruntime](https://github.com/VHSgunzo/uruntime)
 
 <details>
   <summary><b><i>raison d'être</i></b></summary>
