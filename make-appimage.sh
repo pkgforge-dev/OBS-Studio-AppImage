@@ -13,6 +13,7 @@ export ICON=/usr/share/icons/hicolor/256x256/apps/com.obsproject.Studio.png
 export DEPLOY_LOCALE=1
 export DEPLOY_OPENGL=1 
 export DEPLOY_PIPEWIRE=1
+export PATH_MAPPING_HARDCODED='libobs.so*'
 
 # Deploy dependencies
 quick-sharun \
