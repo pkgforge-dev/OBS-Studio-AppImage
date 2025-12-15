@@ -49,7 +49,7 @@ jobs:
 
       - name: Read version and Get date
         run: |
-          echo "VERSION=$(awk -F'=' '/X-AppImage-Name/{print $2; exit}' ./appinfo)" >> "${GITHUB_ENV}"
+          echo "VERSION=$(awk -F'=' '/X-AppImage-Version/{print $2; exit}' ./appinfo)" >> "${GITHUB_ENV}"
           echo "DATE=$(date +'%Y-%m-%d_%s')" >> "$GITHUB_ENV"
 
       - name: Release Artifacts
