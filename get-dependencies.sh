@@ -9,6 +9,7 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	libfdk-aac         \
 	libxtst            \
+	luajit             \
 	obs-studio         \
 	pipewire-audio     \
 	pipewire-jack      \
