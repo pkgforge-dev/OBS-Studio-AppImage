@@ -30,9 +30,7 @@ if true; then
 	sed -i -e 's|-DENABLE_BROWSER=OFF|-DENABLE_BROWSER=ON -DCEF_ROOT_DIR="$srcdir"/../cef_binary_*|' ./PKGBUILD
 	wget "https://cdn-fastly.obsproject.com/downloads/cef_binary_6533_linux_${ARCH}_v6.tar.xz" -O /tmp/cef.tar.xz
 	tar xvf /tmp/cef.tar.xz
-	makepkg -fs --skippgpcheck
-	rm -f ./*debug*.pkg.tar*
-	pacman -U --noconfirm ./obs-studio*.pkg.tar.zst
+	make-aur-package
 else
 	pacman -Syu --noconfirm obs-studio
 fi
