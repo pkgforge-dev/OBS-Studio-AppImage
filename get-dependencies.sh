@@ -10,7 +10,6 @@ pacman -Syu --noconfirm \
 	libfdk-aac         \
 	libxtst            \
 	luajit             \
-	obs-studio         \
 	pipewire-audio     \
 	pipewire-jack      \
 	qrcodegencpp-cmake \
@@ -24,7 +23,10 @@ echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
 get-debloated-pkgs --add-common --prefer-nano intel-media-driver-mini
 
-# Comment this out if you need an AUR package
-#get-aur-package PACKAGENAME
 
-# If the application needs to be manually built that has to be done down here
+git clone --depth 1 https://gitlab.archlinux.org/archlinux/packaging/packages/obs-studio.git ./obs
+cd ./obs
+sed -i -e 's|-DENABLE_BROWSER=OFF|-DENABLE_BROWSER=ON -DCEF_ROOT_DIR=$(readlink -f "$srcdir"/../cef_binary_*)|' ./PKGBUILD
+wget "https://cdn-fastly.obsproject.com/downloads/cef_binary_6533_linux_${ARCH}_v6.tar.xz" -O /tmp/cef.tar.xz
+tar xvf /tmp/cef.tar.xz
+make-aur-package

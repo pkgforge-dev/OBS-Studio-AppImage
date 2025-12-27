@@ -3,6 +3,8 @@
 [![GitHub Downloads](https://img.shields.io/github/downloads/pkgforge-dev/OBS-Studio-AppImage/total?logo=github&label=GitHub%20Downloads)](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
 [![CI Build Status](https://github.com//pkgforge-dev/OBS-Studio-AppImage/actions/workflows/appimage.yml/badge.svg)](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
 
+**These builds include the browser source feature.**
+
 * [Latest Stable Release](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest)
 
 ---
