@@ -15,6 +15,7 @@ export DEPLOY_LOCALE=1
 export DEPLOY_OPENGL=1 
 export DEPLOY_PIPEWIRE=1
 export DEPLOY_SYS_PYTHON=1
+export DEPLOY_SDL=1
 export PATH_MAPPING_HARDCODED='libobs.so*'
 
 # Deploy dependencies
