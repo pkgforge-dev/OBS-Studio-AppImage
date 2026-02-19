@@ -15,6 +15,8 @@
 | :---: | :---: |
 | [Click here](https://github.com/pkgforge-dev/OBS-Studio-AppImage/releases/latest) | [Click here](https://github.com/obsproject/obs-studio) |
 
+**These builds include the browser source feature**
+
 </div>
 
 ---
