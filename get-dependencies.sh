@@ -7,9 +7,11 @@ ARCH=$(uname -m)
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
+	kvantum            \
 	libfdk-aac         \
 	libxtst            \
 	luajit             \
+	lxqt-qtplugin      \
 	pipewire-audio     \
 	pipewire-jack      \
 	qrcodegencpp-cmake \
