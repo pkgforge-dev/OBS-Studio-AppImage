@@ -7,14 +7,16 @@ ARCH=$(uname -m)
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
-	kvantum            \
-	libfdk-aac         \
-	libxtst            \
-	luajit             \
-	lxqt-qtplugin      \
-	pipewire-audio     \
-	pipewire-jack      \
-	qrcodegencpp-cmake \
+	kvantum                   \
+	libfdk-aac                \
+	libxtst                   \
+	luajit                    \
+	lxqt-qtplugin             \
+	obs-studio                \
+	obs-studio-plugin-browser \
+	pipewire-audio            \
+	pipewire-jack             \
+	qrcodegencpp-cmake        \
 	qt6ct
 
 if [ "$ARCH" = 'x86_64' ]; then
@@ -25,10 +27,3 @@ echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
 get-debloated-pkgs --add-common --prefer-nano intel-media-driver-mini
 
-
-git clone --depth 1 https://gitlab.archlinux.org/archlinux/packaging/packages/obs-studio.git ./obs
-cd ./obs
-sed -i -e 's|-DENABLE_BROWSER=OFF|-DENABLE_BROWSER=ON -DCEF_ROOT_DIR=$(readlink -f "$srcdir"/../cef_binary_*)|' ./PKGBUILD
-wget "https://cdn-fastly.obsproject.com/downloads/cef_binary_6533_linux_${ARCH}_v6.tar.xz" -O /tmp/cef.tar.xz
-tar xvf /tmp/cef.tar.xz
-make-aur-package
