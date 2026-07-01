@@ -23,6 +23,7 @@ quick-sharun \
 	/usr/bin/obs*    \
 	/usr/lib/obs*    \
 	/usr/lib/libobs* \
+	/usr/lib/cef     \
 	/usr/lib/libluajit*.so*
 
 # Additional changes can be done in between here
